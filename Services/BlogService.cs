@@ -12,7 +12,7 @@ namespace Blogscape.Services
                 Random rnd = new Random();
                 int id = rnd.Next(1001, 9999);
                 string fileName = $"{id}.json";
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+                string filePath = Path.Combine(Directory.GetCurrentDirectory() + "//Data", fileName);
                 CreateFile(fileName, filePath);
 
                 var blogToAdd = new Blog
@@ -54,7 +54,7 @@ namespace Blogscape.Services
             try
             {
                 string fileName = $"{id}.json";
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+                string filePath = Path.Combine(Directory.GetCurrentDirectory() +"//Data", fileName);
                 if (File.Exists(filePath))
                 {
                     File.Delete(filePath);
@@ -79,7 +79,7 @@ namespace Blogscape.Services
             try
             {
                 string fileName = $"{id}.json";
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+                string filePath = Path.Combine(Directory.GetCurrentDirectory() + "//Data", fileName);
                 if (File.Exists(filePath))
                 {
                     var fileData = File.ReadAllText(filePath);
@@ -102,7 +102,11 @@ namespace Blogscape.Services
         public List<Blog> GetBlogs()
         {
             List<Blog> dataList = new List<Blog>();
-            string directoryPath = Directory.GetCurrentDirectory();
+            string directoryPath = Directory.GetCurrentDirectory() + "\\Data";
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
             string[] blogFiles = Directory.GetFiles(directoryPath, "*.json");
             foreach (string blogFile in blogFiles)
             {
@@ -116,7 +120,7 @@ namespace Blogscape.Services
                 dataList.Add(data);
             }
 
-            return dataList;
+            return dataList.OrderBy(x=>x.PublishedDate).ToList();
         }
 
         public bool UpdateBlog(Blog blog)
@@ -124,7 +128,7 @@ namespace Blogscape.Services
             try
             {
                 string fileName = $"{blog.Id}.json";
-                string filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+                string filePath = Path.Combine(Directory.GetCurrentDirectory() + "//Data", fileName);
                 if (File.Exists(filePath))
                 {
                     var blogToAdd = new Blog

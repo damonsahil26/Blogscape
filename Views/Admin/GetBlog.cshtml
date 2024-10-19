@@ -1,0 +1,23 @@
+﻿@model List<Blogscape.Models.Blog>
+
+<div class="blog-admin-container">
+    <div class="header">
+        <h1>Personal Blog</h1>
+        <a href="@Url.Action("Create", "Blog")" class="add-link">+ Add</a>
+    </div>
+
+    <div class="blog-list">
+        <ul>
+            @foreach (var blog in Model)
+            {
+                <li>
+                    <span class="blog-title">@blog.Title</span>
+                    <span class="blog-actions">
+                        <a href="@Url.Action("Edit", "Blog", new { id = blog.Id })">Edit</a> |
+                        <a href="@Url.Action("Delete", "Blog", new { id = blog.Id })">Delete</a>
+                    </span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
