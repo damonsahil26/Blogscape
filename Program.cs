@@ -1,3 +1,4 @@
+using Blogscape.Middlewares;
 using Blogscape.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseMiddleware<BasicAuthMiddleware>();
 
 app.UseAuthorization();
 

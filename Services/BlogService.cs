@@ -137,7 +137,8 @@ namespace Blogscape.Services
                         Content = blog.Content,
                         Author = blog.Author,
                         ImageUrl = blog.ImageUrl,
-                        PublishedDate = DateTime.Now,
+                        LastUpdatedDate = DateTime.Now,
+                        PublishedDate= blog.PublishedDate,
                         Title = blog.Title,
                     };
 
